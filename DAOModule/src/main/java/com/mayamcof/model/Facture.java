@@ -22,6 +22,7 @@ public class Facture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	//contient la date d'aujourd'hui
 	private Date datefacture;
 	
 }

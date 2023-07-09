@@ -22,6 +22,7 @@ public class Consommation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	// doit etre 0 > 
 	private int quantite;
 	
 	@ManyToOne

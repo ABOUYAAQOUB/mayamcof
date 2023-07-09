@@ -30,8 +30,11 @@ public class Terrain {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	// 0 > 
 	private float surface;
+	// R+2 -> R+6
 	private String etage;
+	// non null
 	private String adresse;
 	
 	@ManyToOne

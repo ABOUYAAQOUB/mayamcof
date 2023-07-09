@@ -24,7 +24,9 @@ public class Travailler {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	// non null
 	private Date datedebut;
+	// non null et datedebut < datefin
 	private Date datefin;
 	
 	@ManyToOne

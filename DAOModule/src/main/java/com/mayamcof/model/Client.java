@@ -27,8 +27,11 @@ public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	//non vide 
 	private String nom;
+	// contient @ et .
 	private String email;
+	// no contient pas des chaines de caracter et la taille 14 
 	private String tel;
 	
 	@JsonIgnore

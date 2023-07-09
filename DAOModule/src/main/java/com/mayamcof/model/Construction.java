@@ -29,6 +29,7 @@ public class Construction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
 	private int unite;
 	private int quantite;
 	private float prix;

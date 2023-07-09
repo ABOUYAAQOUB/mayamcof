@@ -27,6 +27,7 @@ public class Contrat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private Date datecontrat;
+	// la taille ne depace pas deux mega
 	@Column(columnDefinition = "mediumtext")
 	private String contratpdf;
 	

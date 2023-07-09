@@ -27,8 +27,11 @@ public class Fournisseur {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	// doit etre non null 
 	private String nom;
+	// no contient pas des chaines de caracter et la taille 14 
 	private String tel;
+	// oblegatoire et egale 15 numeros
 	private String ICE;
 	
 	@JsonIgnore

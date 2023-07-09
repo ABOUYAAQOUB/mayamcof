@@ -27,6 +27,7 @@ public class Tache {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	// ne doit pas etre null
 	private String libele;
 	
 	@JsonIgnore

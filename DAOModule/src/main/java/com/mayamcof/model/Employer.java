@@ -27,8 +27,11 @@ public class Employer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	// ne doit pas etre null ""
 	private String nom;
+	// doit etre 0 > et non null
 	private float salaire;
+	// non vide 
 	private String type;
 	
 	@JsonIgnore

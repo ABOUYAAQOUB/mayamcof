@@ -22,7 +22,9 @@ public class DetailCommande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	// doit etre 0 >
 	private float prix;
+	// doit etre 0 >
 	private int quantite;
 	
 	@ManyToOne
