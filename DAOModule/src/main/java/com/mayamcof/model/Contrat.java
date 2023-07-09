@@ -1,17 +1,16 @@
 package com.mayamcof.model;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,17 +20,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "clients")
-public class Client {
+@Table(name = "contrats")
+public class Contrat {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String nom;
-	private String email;
-	private String tel;
+	private Date datecontrat;
+	@Column(columnDefinition = "mediumtext")
+	private String contratpdf;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "client",targetEntity=Terrain.class,cascade = CascadeType.ALL)
-	protected List<Terrain> terrains;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "terrain_id")
+	private Terrain terrain;
 }

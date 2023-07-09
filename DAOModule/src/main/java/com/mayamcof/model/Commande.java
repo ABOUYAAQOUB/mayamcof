@@ -1,5 +1,6 @@
 package com.mayamcof.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,17 +24,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "clients")
-public class Client {
+@Table(name = "commandes")
+public class Commande {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String nom;
-	private String email;
-	private String tel;
+	private Date datecommande;
+	
+	@ManyToOne
+	@JoinColumn(name = "fournisseur_id")
+	private Fournisseur fournisseur;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "client",targetEntity=Terrain.class,cascade = CascadeType.ALL)
-	protected List<Terrain> terrains;
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "commande",targetEntity=DetailCommande.class,cascade = CascadeType.ALL)
+	protected List<DetailCommande> DetailCommandes;
 }

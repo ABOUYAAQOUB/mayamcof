@@ -21,17 +21,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "clients")
-public class Client {
+@Table(name = "taches")
+public class Tache {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String nom;
-	private String email;
-	private String tel;
+	private String libele;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "client",targetEntity=Terrain.class,cascade = CascadeType.ALL)
-	protected List<Terrain> terrains;
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "tache",targetEntity=Construction.class,cascade = CascadeType.ALL)
+	protected List<Construction> constructions;
 }

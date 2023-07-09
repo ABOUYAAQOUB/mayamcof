@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,17 +23,30 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "clients")
-public class Client {
+@Table(name = "constructions")
+public class Construction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String nom;
-	private String email;
-	private String tel;
+	private int unite;
+	private int quantite;
+	private float prix;
+	private boolean confirmer;
+	
+	@ManyToOne
+	@JoinColumn(name = "terrain_id")
+	private Terrain terrain;
+	
+	@ManyToOne
+	@JoinColumn(name = "tache_id")
+	private Tache tache;
+	
+	@ManyToOne
+	@JoinColumn(name = "facture_id")
+	private Facture facture;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "client",targetEntity=Terrain.class,cascade = CascadeType.ALL)
-	protected List<Terrain> terrains;
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "construction",targetEntity=Consommation.class,cascade = CascadeType.ALL)
+	protected List<Consommation> consommations;
 }
