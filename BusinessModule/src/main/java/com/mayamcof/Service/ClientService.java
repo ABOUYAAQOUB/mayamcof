@@ -5,39 +5,56 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.mayamcof.IService.IClient;
+import com.mayamcof.Repository.ClientRepository;
 import com.mayamcof.model.Client;
 
 @Service
 public class ClientService implements IClient{
 
+	private ClientRepository clientRepository;
+	
+	public ClientService(ClientRepository clientRepository) {
+		
+		this.clientRepository = clientRepository;
+	}
+
 	@Override
 	public List<Client> getAll() {
 		
-		return null;
+		return this.clientRepository.findAll();
 	}
 
 	@Override
 	public Client getClient(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.clientRepository.findById(id).get();
 	}
 
 	@Override
 	public Client create(Client client) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.clientRepository.save(client);
 	}
 
 	@Override
 	public Client update(Client client) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Client clientUpdated = this.clientRepository.findById(client.getId()).get();
+		
+		clientUpdated.setEmail(client.getEmail());
+		clientUpdated.setNom(client.getNom());
+		clientUpdated.setTel(client.getTel());
+		client.setTerrains(client.getTerrains());
+		
+		return this.clientRepository.save(clientUpdated);
 	}
 
 	@Override
-	public String delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(Long id) {
+		
+		Client clientDeleted = this.clientRepository.findById(id).get();
+		
+		this.clientRepository.delete(clientDeleted);
 	}
 
 }

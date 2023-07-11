@@ -10,5 +10,5 @@ public interface IClient {
 	public Client getClient(Long id);
 	public Client create(Client client);
 	public Client update(Client client);
-	public String delete(Long id);
+	public void delete(Long id);
 }

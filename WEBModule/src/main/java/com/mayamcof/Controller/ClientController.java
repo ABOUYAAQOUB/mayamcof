@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mayamcof.IService.IClient;
 import com.mayamcof.model.Client;
 
 @CrossOrigin("*")
@@ -19,28 +20,40 @@ import com.mayamcof.model.Client;
 @RequestMapping("/mayamcof")
 public class ClientController {
 
+	private IClient iClient;
+	
+	public ClientController(IClient iClient) {
+		
+		this.iClient = iClient;
+	}
+
 	@GetMapping("/clients")
 	public List<Client>getAll(){
-		return null;
+		
+		return this.iClient.getAll();
 	}
 	
 	@GetMapping("/client/{id}")
 	public Client getClient(@PathVariable long id) {
-		return null;
+		
+		return this.iClient.getClient(id);
 	}
 	
 	@PostMapping("/client")
-	public String create(@RequestBody Client client) {
-		return null;
+	public Client create(@RequestBody Client client) {
+		
+		return this.iClient.create(client);
 	}
 	
 	@PutMapping("/client")
-	public String update(@RequestBody Client client) {
-		return null;
+	public Client update(@RequestBody Client client) {
+		
+		return this.iClient.update(client);
 	}
 	
 	@DeleteMapping("/client/{id}")
-	public String delete(@PathVariable Long id) {
-		return null;
+	public void delete(@PathVariable Long id) {
+		
+		this.iClient.delete(id);
 	}
 }
