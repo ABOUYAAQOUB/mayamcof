@@ -23,13 +23,13 @@ public class ClientService implements IClient{
 	}
 
 	@Override
-	public String create(Client client) {
+	public Client create(Client client) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String update(Client client) {
+	public Client update(Client client) {
 		// TODO Auto-generated method stub
 		return null;
 	}
