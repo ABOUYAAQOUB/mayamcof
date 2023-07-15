@@ -11,4 +11,5 @@ public interface IContrat {
 	public Contrat create(Contrat contrat);
 	public Contrat update(Contrat contrat);
 	public void delete(Long id);
+	public Contrat getContratByTerrainId(long id);
 }

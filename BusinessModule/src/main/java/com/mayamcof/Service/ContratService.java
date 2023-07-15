@@ -6,16 +6,26 @@ import org.springframework.stereotype.Service;
 
 import com.mayamcof.IService.IContrat;
 import com.mayamcof.Repository.ContratRepository;
+import com.mayamcof.Repository.TerrainRepository;
 import com.mayamcof.model.Contrat;
+import com.mayamcof.model.Terrain;
 
 @Service
 public class ContratService implements IContrat{
 	
 	private ContratRepository contratRepository;
+	private TerrainRepository terrainRepository;
 
-	public ContratService(ContratRepository contratRepository) {
+	public ContratService(ContratRepository contratRepository,TerrainRepository terrainRepository) {
 		
 		this.contratRepository = contratRepository;
+		this.terrainRepository = terrainRepository;
+	}
+	
+	@Override
+	public Contrat getContratByTerrainId(long id) {
+		
+		return this.terrainRepository.findById(id).orElse(null).getContrat();
 	}
 
 	@Override

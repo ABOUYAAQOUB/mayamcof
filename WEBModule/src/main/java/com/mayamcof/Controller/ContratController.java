@@ -33,6 +33,12 @@ public class ContratController {
 		return this.iContrat.getAll();
 	}
 	
+	@GetMapping("/contratByterrain/{id}")
+	public Contrat getContratbyterrain(@PathVariable long id) {
+		
+		return this.iContrat.getContratByTerrainId(id);
+	}
+	
 	@GetMapping("/contrat/{id}")
 	public Contrat getContrat(@PathVariable long id) {
 		
