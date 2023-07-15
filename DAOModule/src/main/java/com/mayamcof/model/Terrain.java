@@ -49,6 +49,7 @@ public class Terrain {
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "terrain",targetEntity=Travailler.class,cascade = CascadeType.ALL)
 	protected List<Travailler> travaillers;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "terrain")
 	private Contrat contrat;
 }
