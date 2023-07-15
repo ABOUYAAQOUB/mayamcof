@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.mayamcof.IService.ITache;
 import com.mayamcof.Repository.TacheRepository;
+import com.mayamcof.exception.UniqueException;
 import com.mayamcof.model.Tache;
 
 @Service
@@ -29,12 +30,26 @@ public class TacheService implements ITache{
 
 	@Override
 	public Tache create(Tache tache) {
-		return this.tacheRepository.save(tache);
+		
+		if(this.tacheRepository.getByLibele(tache.getLibele()) == null) {
+			return this.tacheRepository.save(tache);
+		}else {
+			throw new UniqueException("Tache deja existe", "0000", "Libele");
+		}
+		
 	}
 
 	@Override
 	public Tache update(Tache tache) {
-		return this.tacheRepository.save(tache);
+		
+		if(this.tacheRepository.getByLibele(tache.getLibele()) == null || this.tacheRepository.getByLibele(tache.getLibele()).getId() == tache.getId()) {
+			
+			return this.tacheRepository.save(tache);
+		}else {
+			
+			throw new UniqueException("Tache deja existe", "0000", "Libele");
+		}
+		
 	}
 
 	@Override

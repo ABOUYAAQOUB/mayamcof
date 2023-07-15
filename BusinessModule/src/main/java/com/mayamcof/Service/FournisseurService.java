@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.mayamcof.IService.IFournisseur;
 import com.mayamcof.Repository.FournisseurRepository;
+import com.mayamcof.exception.UniqueException;
 import com.mayamcof.model.Fournisseur;
 
 @Service
@@ -29,12 +30,29 @@ public class FournisseurService implements IFournisseur {
 
 	@Override
 	public Fournisseur create(Fournisseur fournisseur) {
-		return this.fournisseurRepository.save(fournisseur);
+		
+		if(this.fournisseurRepository.getByICE(fournisseur.getICE()) == null) {
+			
+			return this.fournisseurRepository.save(fournisseur);
+			
+		}else {
+			
+			throw new UniqueException("Fournisseur deja existe","0000","ICE");
+		}
+		
 	}
 
 	@Override
 	public Fournisseur update(Fournisseur fournisseur) {
-		return this.fournisseurRepository.save(fournisseur);
+		
+		if(this.fournisseurRepository.getByICE(fournisseur.getICE()) == null || this.fournisseurRepository.getByICE(fournisseur.getICE()).getId() == fournisseur.getId()) {
+			
+			return this.fournisseurRepository.save(fournisseur);
+		}else {
+			
+			throw new UniqueException("Fournisseur deja existe","0000","ICE");
+		}
+		
 	}
 
 	@Override
