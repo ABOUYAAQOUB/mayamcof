@@ -14,8 +14,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,11 +59,16 @@ public class UtilisateurController {
 		return this.iUtilisateur.create(utilisateur);
 	}
 	
-	@PostMapping("/login")
-	public void login(HttpServletRequest request, HttpServletResponse response) {
+	@PutMapping("/utilisateur")
+	public Utilisateur update(@RequestBody Utilisateur utilisateur) {
 		
-		JwtAuthenticationFilter authenticationFilter = new JwtAuthenticationFilter(this.authenticationManager);
-		authenticationFilter.attemptAuthentication(request, response);
+		return this.iUtilisateur.update(utilisateur);
+	}
+	
+	@DeleteMapping("/utilisateur/{id}")
+	public void delete (@PathVariable long id) {
+		
+		this.iUtilisateur.deleteUtilisateur(id);
 	}
 	
 	@GetMapping("/refreshToken")

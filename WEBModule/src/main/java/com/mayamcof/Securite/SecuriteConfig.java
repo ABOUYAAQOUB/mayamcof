@@ -67,7 +67,7 @@ public class SecuriteConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests().anyRequest().authenticated();// c'est a dire touts les access il faut un authontification
 		http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean())); // voila le filter qui je doit utilise
 		http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-		
+		http.addFilter(this.getAuthenticationFilter());
 	}
 	
 	@Bean
@@ -76,4 +76,10 @@ public class SecuriteConfig extends WebSecurityConfigurerAdapter{
 		
 		return super.authenticationManagerBean();
 	}
+	
+	protected JwtAuthenticationFilter getAuthenticationFilter() throws Exception {
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManagerBean());
+        filter.setFilterProcessesUrl("/mayamcof/login");
+        return filter;
+    }
 }
