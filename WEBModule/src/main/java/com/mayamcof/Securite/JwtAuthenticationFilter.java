@@ -34,19 +34,20 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		
+		System.out.println("!! attemptAuthentication !!");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 		
 		return this.authenticationManager.authenticate(authenticationToken);
+		// password ou username incorecte
 	}
 	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		
+		System.out.println("!! successfulAuthentication !!");
 		User user = (User) authResult.getPrincipal();
 		
 		Algorithm algorithm = Algorithm.HMAC256("SPRING_SECURITY_API");

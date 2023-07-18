@@ -30,6 +30,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mayamcof.IService.IUtilisateur;
 import com.mayamcof.Securite.JwtAuthenticationFilter;
+import com.mayamcof.exception.AuthenticationException;
+import com.mayamcof.exception.UniqueException;
 import com.mayamcof.model.Utilisateur;
 
 @CrossOrigin("*")
@@ -73,7 +75,7 @@ public class UtilisateurController {
 	
 	@GetMapping("/refreshToken")
 	public void getRefreshToken(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		
+		System.out.println("!! getRefreshToken !!");
 		String authToken = request.getHeader("Authorization");
 		if(authToken != null && authToken.startsWith("Bearer ")) {
 			try {
@@ -106,8 +108,8 @@ public class UtilisateurController {
 				
 			} catch (Exception e) {				
 					
-				throw e;
-				
+				throw new AuthenticationException("Refresh Token est expirier ou incorrecte", "0000", "refreshToken");
+				// refresh token est non corecte ou experier
 			}
 		}else {
 			throw new RuntimeException("!! Refresh token Required !!");

@@ -25,7 +25,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
+		System.out.println("!! doFilterInternal !!");
 		if(request.getServletPath().equals("/mayamcof/refreshToken")) {
 			
 			filterChain.doFilter(request, response);
@@ -60,7 +60,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 					
 					response.setHeader("error-message-security",e.getMessage());
 					response.sendError(HttpServletResponse.SC_FORBIDDEN);
-					
+					// le acccess token est experi // ou refresh token
 				}
 			}else {
 				filterChain.doFilter(request, response);
