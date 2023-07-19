@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +27,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mayamcof.IService.IUtilisateur;
-import com.mayamcof.Securite.JwtAuthenticationFilter;
 import com.mayamcof.exception.AuthenticationException;
-import com.mayamcof.exception.UniqueException;
 import com.mayamcof.model.Utilisateur;
 
 @CrossOrigin("*")
@@ -40,13 +36,10 @@ import com.mayamcof.model.Utilisateur;
 public class UtilisateurController {
 
 	private IUtilisateur iUtilisateur;
-	
-	private AuthenticationManager authenticationManager;
 
 	public UtilisateurController(IUtilisateur iUtilisateur,AuthenticationManager authenticationManager) {
 		
 		this.iUtilisateur = iUtilisateur;
-		this.authenticationManager = authenticationManager;
 	}
 	
 	@GetMapping("/utilisateurs")
@@ -108,11 +101,11 @@ public class UtilisateurController {
 				
 			} catch (Exception e) {				
 					
-				throw new AuthenticationException("Refresh Token est expirier ou incorrecte", "0000", "refreshToken");
+				throw new AuthenticationException("Refresh Token est expiré ou incorrecte", "0000", "refreshToken");
 				// refresh token est non corecte ou experier
 			}
 		}else {
-			throw new RuntimeException("!! Refresh token Required !!");
+			throw new AuthenticationException("!! Refresh token Required !!", "0000", "refreshToken");
 		}
 		
 	}

@@ -3,28 +3,46 @@ package com.mayamcof.Securite;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.MissingClaimException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mayamcof.exception.AuthenticationException;
 
+@Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter{
+	
+	
+	private final ObjectMapper objectMapper;
+
+    public JwtAuthorizationFilter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+			throws AuthenticationException,ServletException, IOException{
 		System.out.println("!! doFilterInternal !!");
 		if(request.getServletPath().equals("/mayamcof/refreshToken")) {
 			
@@ -56,12 +74,31 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 					filterChain.doFilter(request, response);
 				
-				} catch (Exception e) {
+				}catch (TokenExpiredException e) {
+					response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			         response.setContentType("application/json");
+
+			            Map<String, Object> errorResponse = new HashMap<>();
+			            errorResponse.put("status", HttpStatus.UNAUTHORIZED.value());
+			            errorResponse.put("message", "Token Expired");
+			            errorResponse.put("error", e.getMessage());
+
+			            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
+			            response.getWriter().write(jsonResponse);
+				}catch (Exception  e) {
 					
-					response.setHeader("error-message-security",e.getMessage());
-					response.sendError(HttpServletResponse.SC_FORBIDDEN);
-					// le acccess token est experi // ou refresh token
+					 response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			         response.setContentType("application/json");
+
+			            Map<String, Object> errorResponse = new HashMap<>();
+			            errorResponse.put("status", HttpStatus.UNAUTHORIZED.value());
+			            errorResponse.put("message", "Token inccorecte");
+			            errorResponse.put("error", e.getMessage());
+
+			            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
+			            response.getWriter().write(jsonResponse);
 				}
+				
 			}else {
 				filterChain.doFilter(request, response);
 			}

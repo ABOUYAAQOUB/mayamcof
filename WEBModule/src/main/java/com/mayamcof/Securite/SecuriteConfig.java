@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mayamcof.IService.IUtilisateur;
 import com.mayamcof.model.Utilisateur;
 
@@ -65,8 +67,8 @@ public class SecuriteConfig extends WebSecurityConfigurerAdapter{
 		//http.authorizeRequests().anyRequest().permitAll();
 		//http.authorizeRequests().antMatchers(HttpMethod.POST,"/mayamcof/client/**").permitAll();
 		http.authorizeRequests().anyRequest().authenticated();// c'est a dire touts les access il faut un authontification
-		http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean())); // voila le filter qui je doit utilise
-		http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean(),objectMapper())); // voila le filter qui je doit utilise
+		http.addFilterBefore(new JwtAuthorizationFilter(objectMapper()), UsernamePasswordAuthenticationFilter.class);
 		http.addFilter(this.getAuthenticationFilter());
 	}
 	
@@ -78,8 +80,13 @@ public class SecuriteConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	protected JwtAuthenticationFilter getAuthenticationFilter() throws Exception {
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManagerBean());
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManagerBean(),objectMapper());
         filter.setFilterProcessesUrl("/mayamcof/login");
         return filter;
+    }
+	
+	@Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }

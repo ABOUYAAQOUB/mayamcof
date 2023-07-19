@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,28 +22,55 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mayamcof.exception.UniqueException;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
 	private AuthenticationManager authenticationManager;
+	private final ObjectMapper objectMapper;
 
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+   	public JwtAuthenticationFilter(AuthenticationManager authenticationManager,ObjectMapper objectMapper) {
 		
 		this.authenticationManager = authenticationManager;
+		   this.objectMapper = objectMapper;
 	}
 	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException {
-		System.out.println("!! attemptAuthentication !!");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+			throws AuthenticationException {		
+		try {
+			System.out.println("!! attemptAuthentication !!");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+			
+			return this.authenticationManager.authenticate(authenticationToken);
+		} catch (Exception e) {
+			 response.setStatus(HttpStatus.UNAUTHORIZED.value());
+	         response.setContentType("application/json");
+
+	            Map<String, Object> errorResponse = new HashMap<>();
+	            errorResponse.put("status", HttpStatus.UNAUTHORIZED.value());
+	            errorResponse.put("message", "Username or password incorrect");
+	            errorResponse.put("error", e.getMessage());
+
+	            String jsonResponse = null;
+				try {
+					jsonResponse = objectMapper.writeValueAsString(errorResponse);
+					response.getWriter().write(jsonResponse);
+				} catch (JsonProcessingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+		return null;
 		
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-		
-		return this.authenticationManager.authenticate(authenticationToken);
-		// password ou username incorecte
 	}
 	
 	@Override
