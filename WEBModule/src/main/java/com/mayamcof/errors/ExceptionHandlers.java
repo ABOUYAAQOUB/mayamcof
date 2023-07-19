@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.mayamcof.exception.AuthenticationException;
 import com.mayamcof.exception.UniqueException;
 
 @RestControllerAdvice
@@ -24,4 +25,16 @@ public class ExceptionHandlers {
 		
 	}
 
+	@ExceptionHandler(AuthenticationException.class)
+	public ResponseEntity<String>handlerAuthontificationException(AuthenticationException ex) throws JSONException{
+		
+		JSONObject response = new JSONObject();
+		response.put("title", "Authentication");
+		response.put("status",  HttpStatus.UNAUTHORIZED.value());
+		response.put("message", ex.getMessage());
+		response.put("errorCode", ex.getErrorCode());
+		response.put("champ", ex.getChamp());
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response.toString());
+		
+	}
 }
