@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +29,7 @@ import com.mayamcof.IService.IUtilisateur;
 import com.mayamcof.exception.AuthenticationException;
 import com.mayamcof.model.Utilisateur;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/mayamcof")
 public class UtilisateurController {
