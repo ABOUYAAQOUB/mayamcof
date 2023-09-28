@@ -83,7 +83,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 		String jwtAccessToken = JWT.create()
 				.withSubject(user.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis()+15*60*1000))
+				.withExpiresAt(new Date(System.currentTimeMillis()+60*60*1000))
 				.withIssuer(request.getRequestURI().toString())
 				.withClaim("roles", user.getAuthorities().stream().map(rs->rs.getAuthority()).collect(Collectors.toList()))
 				.sign(algorithm);

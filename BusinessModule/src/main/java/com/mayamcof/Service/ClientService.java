@@ -33,7 +33,7 @@ public class ClientService implements IClient{
 	@Override
 	public Client create(Client client) {	
 		if(this.clientRepository.findByCIN(client.getCin())==null) {
-			if(this.clientRepository.findByEmail(client.getEmail())==null ) {
+			if(client.getEmail().isEmpty() || this.clientRepository.findByEmail(client.getEmail())==null ) {
 				return this.clientRepository.save(client);
 			}else {
 				throw new UniqueException("Cette Client deja existe", "6666", "Email");
@@ -49,7 +49,7 @@ public class ClientService implements IClient{
 	public Client update(Client client) {
 		
 		if(this.clientRepository.findByCIN(client.getCin())==null  ||  this.clientRepository.findByCIN(client.getCin()).getId()==client.getId()) {
-			if(this.clientRepository.findByEmail(client.getEmail())==null ||  this.clientRepository.findByEmail(client.getEmail()).getId()==client.getId()) {
+			if(client.getEmail().isEmpty() || this.clientRepository.findByEmail(client.getEmail())==null ||  this.clientRepository.findByEmail(client.getEmail()).getId()==client.getId()) {
 				return this.clientRepository.save(client);
 			}else {
 				throw new UniqueException("Cette Client deja existe", "6666", "Email");
