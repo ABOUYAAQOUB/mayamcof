@@ -30,8 +30,8 @@ public class Travailler {
 	private Date datefin;
 	
 	@ManyToOne
-	@JoinColumn(name = "terrain_id")
-	private Terrain terrain;
+	@JoinColumn(name = "construction_id")
+	private Construction construction;
 	
 	@ManyToOne
 	@JoinColumn(name = "employer_id")
