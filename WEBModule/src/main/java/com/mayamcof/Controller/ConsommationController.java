@@ -32,6 +32,12 @@ public class ConsommationController {
 		return this.iConsommation.getAll();
 	}
 	
+	@GetMapping("/consommations/{id}")
+	public List<Consommation>getAll(@PathVariable long id){
+		
+		return this.iConsommation.getAll(id);
+	}
+	
 	@GetMapping("/consommation/{id}")
 	public Consommation getConsommation(@PathVariable long id) {
 		
