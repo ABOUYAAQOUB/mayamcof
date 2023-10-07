@@ -50,4 +50,8 @@ public class Construction {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "construction",targetEntity=Consommation.class,cascade = CascadeType.ALL)
 	protected List<Consommation> consommations;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "construction",targetEntity=Travailler.class,cascade = CascadeType.ALL)
+	protected List<Travailler> travaillers;
 }

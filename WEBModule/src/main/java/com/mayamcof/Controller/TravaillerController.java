@@ -49,5 +49,10 @@ public class TravaillerController {
 	public void delete(@PathVariable Long id) {
 		this.travailler.delete(id);
 	}
+	
+	@GetMapping("/travaillers/{id}")
+	public Travailler getByConstruction(@PathVariable Long id) {
+		return this.travailler.getByConstruction(id);
+	}
 
 }

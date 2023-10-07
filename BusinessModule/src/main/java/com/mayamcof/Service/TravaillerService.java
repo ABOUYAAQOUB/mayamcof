@@ -41,5 +41,10 @@ public class TravaillerService implements ITravailler {
 	public void delete(Long id) {
 		repository.deleteById(id);		
 	}
+	
+	@Override
+	public Travailler getByConstruction(Long id) {
+		return repository.findByConstruction(id);
+	}
 
 }
