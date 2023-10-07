@@ -32,6 +32,12 @@ public class DetailCommandeController {
 		return this.iDetailCommande.getAll();
 	}
 	
+	@GetMapping("/detailCommandes/{id}")
+	public List<DetailCommande>getDetailByCommande(@PathVariable long id){
+		
+		return this.iDetailCommande.getDetailByCommande(id);
+	}
+	
 	@GetMapping("/detailCommande/{id}")
 	public DetailCommande getCommande(@PathVariable long id) {
 		
