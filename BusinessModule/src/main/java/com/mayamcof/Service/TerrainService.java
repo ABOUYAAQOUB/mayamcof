@@ -47,7 +47,6 @@ public class TerrainService implements ITerrain{
 		terrainUpdated.setContrat(terrain.getContrat());
 		terrainUpdated.setEtage(terrain.getEtage());
 		terrainUpdated.setSurface(terrain.getSurface());
-		terrainUpdated.setTravaillers(terrain.getTravaillers());
 		
 		return this.terrainRepository.save(terrainUpdated);
 	}
