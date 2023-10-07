@@ -32,6 +32,12 @@ public class ConstructionController {
 		return this.iConstruction.getAll();
 	}
 	
+	@GetMapping("/constructions/{id}")
+	public List<Construction>getAll(@PathVariable Long id){
+		
+		return this.iConstruction.getAll(id);
+	}
+	
 	@GetMapping("/construction/{id}")
 	public Construction getConstructions(@PathVariable Long id){
 		

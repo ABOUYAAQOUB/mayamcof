@@ -23,6 +23,12 @@ public class ConsommationService implements IConsommation{
 		
 		return this.consommationRepository.findAll();
 	}
+	
+	@Override
+	public List<Consommation> getAll(long id) {
+		
+		return this.consommationRepository.findByConstruction(id);
+	}
 
 	@Override
 	public Consommation getConsommation(Long id) {

@@ -30,7 +30,7 @@ public class Construction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private int unite;
+	private String unite;
 	private int quantite;
 	private float prix;
 	private boolean confirmer;

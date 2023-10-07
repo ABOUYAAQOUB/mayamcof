@@ -59,4 +59,9 @@ public class ConstructionService implements IConstruction{
 		this.constructionRepository.delete(this.constructionRepository.findById(id).get());
 	}
 
+	@Override
+	public List<Construction> getAll(long id) {
+		return this.constructionRepository.findByTerrain(id);
+	}
+
 }
