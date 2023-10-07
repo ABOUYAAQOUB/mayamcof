@@ -55,4 +55,10 @@ public class DetailCommandeService implements IDetailCommande{
 		this.detailCommandeRepository.delete(this.detailCommandeRepository.findById(id).get());
 	}
 
+	@Override
+	public List<DetailCommande> getDetailByCommande(long id) {
+		
+		return this.detailCommandeRepository.getDetailByCommande(id);
+	}
+
 }
