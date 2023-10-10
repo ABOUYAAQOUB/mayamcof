@@ -11,5 +11,5 @@ public interface ITravailler {
 	public Travailler create(Travailler Travailler);
 	public Travailler update(Travailler Travailler);
 	public void delete(Long id);
-	public Travailler getByConstruction(Long id);
+	public List<Travailler> getByConstruction(Long id);
 }
