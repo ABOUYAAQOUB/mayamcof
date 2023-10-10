@@ -11,4 +11,6 @@ public interface ITerrain {
 	public Terrain create(Terrain terrain);
 	public Terrain update(Terrain terrain);
 	public void delete(Long id);
+	public List<Terrain> getTerrainNotContrat();
+	public List<Terrain> getTerrainUpdate(long id);
 }
