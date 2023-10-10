@@ -43,7 +43,7 @@ public class TravaillerService implements ITravailler {
 	}
 	
 	@Override
-	public Travailler getByConstruction(Long id) {
+	public List<Travailler> getByConstruction(Long id) {
 		return repository.findByConstruction(id);
 	}
 

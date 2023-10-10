@@ -51,7 +51,7 @@ public class TravaillerController {
 	}
 	
 	@GetMapping("/travaillers/{id}")
-	public Travailler getByConstruction(@PathVariable Long id) {
+	public List<Travailler> getByConstruction(@PathVariable Long id) {
 		return this.travailler.getByConstruction(id);
 	}
 
