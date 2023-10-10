@@ -57,4 +57,16 @@ public class TerrainService implements ITerrain{
 		this.terrainRepository.delete(this.terrainRepository.findById(id).get());
 	}
 
+	@Override
+	public List<Terrain> getTerrainNotContrat() {
+		
+		return this.terrainRepository.getTerrainNotContrat();
+	}
+
+	@Override
+	public List<Terrain> getTerrainUpdate(long id) {
+		
+		return this.terrainRepository.getTerrainUpdate(id);
+	}
+
 }

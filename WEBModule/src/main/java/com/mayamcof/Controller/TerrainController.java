@@ -32,6 +32,17 @@ public class TerrainController {
 		return this.iTerrain.getAll();
 	}
 	
+	@GetMapping("/terrainsAnyContrat")
+	public List<Terrain>getTerrainNotContrat(){
+		
+		return this.iTerrain.getTerrainNotContrat();
+	}
+	
+	@GetMapping("/getTerrainUpdate/{id}")
+	public List<Terrain>getTerrainUpdate(@PathVariable long id){
+		return this.iTerrain.getTerrainUpdate(id);
+	}
+	
 	@GetMapping("/terrain/{id}")
 	public Terrain getTerrain(@PathVariable long id) {
 		
