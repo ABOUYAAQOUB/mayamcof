@@ -1,6 +1,7 @@
 package com.mayamcof.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -42,20 +43,17 @@ public class ContratService implements IContrat{
 
 	@Override
 	public Contrat create(Contrat contrat) {
-		
+		Terrain t = terrainRepository.findById(contrat.getTerrain().getId()).get();
+		contrat.setTerrain(t);		
 		return this.contratRepository.save(contrat);
 	}
 
 	@Override
 	public Contrat update(Contrat contrat) {
-		
-		Contrat contratUpdated = this.contratRepository.findById(contrat.getId()).get();
-		
-		contratUpdated.setContratpdf(contrat.getContratpdf());
-		contratUpdated.setDatecontrat(contrat.getDatecontrat());
-		contratUpdated.setTerrain(contrat.getTerrain());
-		
-		return this.contratRepository.save(contratUpdated);
+		Terrain t = terrainRepository.findById(contrat.getTerrain().getId()).get();
+		t.setContrat(contrat);
+		contrat.setTerrain(t);
+		return this.contratRepository.save(contrat);
 	}
 
 	@Override

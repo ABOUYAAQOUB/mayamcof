@@ -46,6 +46,6 @@ public class Terrain {
 	protected List<Construction> constructions;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy = "terrain")
+	@OneToOne(mappedBy = "terrain",cascade = CascadeType.ALL)
 	private Contrat contrat;
 }

@@ -32,6 +32,6 @@ public class Contrat {
 	private String contratpdf;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "terrain_id")
+	@JoinColumn(name = "terrain_id", referencedColumnName = "id")
 	private Terrain terrain;
 }
