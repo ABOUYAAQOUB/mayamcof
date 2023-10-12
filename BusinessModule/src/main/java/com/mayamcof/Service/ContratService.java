@@ -43,8 +43,7 @@ public class ContratService implements IContrat{
 
 	@Override
 	public Contrat create(Contrat contrat) {
-		Terrain t = terrainRepository.findById(contrat.getTerrain().getId()).get();
-		contrat.setTerrain(t);		
+		
 		return this.contratRepository.save(contrat);
 	}
 
