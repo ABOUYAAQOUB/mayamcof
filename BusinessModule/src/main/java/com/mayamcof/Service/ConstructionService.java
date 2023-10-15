@@ -64,4 +64,10 @@ public class ConstructionService implements IConstruction{
 		return this.constructionRepository.findByTerrain(id);
 	}
 
+	@Override
+	public List<String> constructionParAnnee() {
+		
+		return this.constructionRepository.constructionParAnnee();
+	}
+
 }

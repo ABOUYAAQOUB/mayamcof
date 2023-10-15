@@ -31,6 +31,11 @@ public class ConstructionController {
 		
 		return this.iConstruction.getAll();
 	}
+	@GetMapping("/constructionParAnnee")
+	public List<String>constructionParAnnee(){
+		
+		return this.iConstruction.constructionParAnnee();
+	}
 	
 	@GetMapping("/constructions/{id}")
 	public List<Construction>getAll(@PathVariable Long id){

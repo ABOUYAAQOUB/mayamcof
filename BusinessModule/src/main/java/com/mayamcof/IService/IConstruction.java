@@ -12,4 +12,5 @@ public interface IConstruction {
 	public Construction create(Construction construction);
 	public Construction update(Construction construction);
 	public void delete(Long id);
+	public List<String>constructionParAnnee();
 }

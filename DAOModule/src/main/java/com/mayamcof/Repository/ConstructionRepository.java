@@ -13,4 +13,7 @@ import com.mayamcof.model.Construction;
 public interface ConstructionRepository extends JpaRepository<Construction, Long>{
 	@Query("Select c from Construction c WHERE c.terrain.id=:id")
 	List<Construction> findByTerrain(@Param("id") long id);
+	
+	@Query("SELECT date(c.datecontrat),COUNT(cn.id) FROM Contrat c, Terrain t, Construction cn WHERE c.terrain.id = t.id and t.id = cn.terrain.id GROUP BY year(c.datecontrat),c.id")
+	List<String> constructionParAnnee();
 }
